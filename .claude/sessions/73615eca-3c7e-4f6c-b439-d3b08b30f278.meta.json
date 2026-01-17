@@ -1,0 +1,18 @@
+{
+  "id": "73615eca-3c7e-4f6c-b439-d3b08b30f278",
+  "title": "添加一个gitignore文件，将",
+  "createdAt": 1768647540820,
+  "updatedAt": 1768647540829,
+  "lastResponseAt": 1768647540824,
+  "sessionId": "73615eca-3c7e-4f6c-b439-d3b08b30f278",
+  "sdkSessionId": "73615eca-3c7e-4f6c-b439-d3b08b30f278",
+  "usage": {
+    "model": "gemini-3-flash-preview",
+    "inputTokens": 53208,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 6094,
+    "contextWindow": 200000,
+    "contextTokens": 59302,
+    "percentage": 30
+  }
+}

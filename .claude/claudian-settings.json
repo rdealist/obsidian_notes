@@ -38,8 +38,8 @@
       "Remove-Partition"
     ]
   },
-  "permissionMode": "normal",
-  "model": "haiku",
+  "permissionMode": "yolo",
+  "model": "opus",
   "thinkingBudget": "medium",
   "enableAutoTitleGeneration": true,
   "titleGenerationModel": "",
@@ -63,7 +63,7 @@
   "claudeCliPath": "",
   "claudeCliPathsByHost": {},
   "loadUserClaudeSettings": true,
-  "lastClaudeModel": "haiku",
+  "lastClaudeModel": "opus",
   "lastCustomModel": "",
   "lastEnvHash": "",
   "enabledPlugins": [],
