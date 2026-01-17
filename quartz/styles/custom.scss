@@ -1,3 +1,77 @@
 @use "./base.scss";
 
-// put your custom CSS here!
+// Landing page specific styles
+.page:has(.landing-page) {
+  max-width: 100%;
+
+  & > #quartz-body {
+    display: block;
+
+    & .sidebar.left,
+    & .sidebar.right {
+      display: none;
+    }
+
+    & .center {
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
+
+      & > article {
+        max-width: 100%;
+        padding: 0;
+      }
+    }
+  }
+
+  & footer {
+    display: none;
+  }
+}
+
+// Hide page-header on landing page
+body:has(.landing-page) .page-header {
+  display: none;
+}
+
+// Navigation overlay for landing page
+.landing-nav {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 100;
+  display: flex;
+  gap: 0.5rem;
+}
+
+// Custom scrollbar for dark theme
+:root[saved-theme="dark"] {
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #0a0e17;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 4px;
+
+    &:hover {
+      background: #334155;
+    }
+  }
+}
+
+// Improve code block appearance
+pre {
+  background: rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid var(--lightgray);
+}
+
+// Better link hover states
+a:hover {
+  text-decoration: none;
+}
+

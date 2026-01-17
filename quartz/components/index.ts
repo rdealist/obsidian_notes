@@ -1,6 +1,7 @@
 import Content from "./pages/Content"
 import TagContent from "./pages/TagContent"
 import FolderContent from "./pages/FolderContent"
+import HomeLanding from "./pages/HomeLanding"
 import NotFound from "./pages/404"
 import ArticleTitle from "./ArticleTitle"
 import Darkmode from "./Darkmode"
@@ -23,12 +24,14 @@ import Breadcrumbs from "./Breadcrumbs"
 import Comments from "./Comments"
 import Flex from "./Flex"
 import ConditionalRender from "./ConditionalRender"
+import LandingPage from "./LandingPage"
 
 export {
   ArticleTitle,
   Content,
   TagContent,
   FolderContent,
+  HomeLanding,
   Darkmode,
   ReaderMode,
   Head,
@@ -50,4 +53,5 @@ export {
   Comments,
   Flex,
   ConditionalRender,
+  LandingPage,
 }

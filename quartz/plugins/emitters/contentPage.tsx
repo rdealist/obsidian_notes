@@ -7,7 +7,7 @@ import { pageResources, renderPage } from "../../components/renderPage"
 import { FullPageLayout } from "../../cfg"
 import { pathToRoot } from "../../util/path"
 import { defaultContentPageLayout, sharedPageComponents } from "../../../quartz.layout"
-import { Content } from "../../components"
+import { Content, HomeLanding } from "../../components"
 import { styleText } from "util"
 import { write } from "./helpers"
 import { BuildCtx } from "../../util/ctx"
@@ -46,10 +46,21 @@ async function processContent(
 }
 
 export const ContentPage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (userOpts) => {
+  // Create landing page component with configuration
+  const LandingContent = HomeLanding({
+    name: "Stone",
+    title: "AI Explorer & Product Builder",
+    subtitle: "Exploring AI, building products, sharing insights",
+    socialLinks: {
+      github: "https://github.com/your-username",
+      twitter: "https://twitter.com/your-username",
+    },
+  })
+
   const opts: FullPageLayout = {
     ...sharedPageComponents,
     ...defaultContentPageLayout,
-    pageBody: Content(),
+    pageBody: LandingContent,
     ...userOpts,
   }
 
