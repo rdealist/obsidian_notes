@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(git rm:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(npx quartz build:*)",
+      "Bash(command:*)",
+      "Bash(source:*)",
+      "Bash(nvm use:*)"
     ]
   }
 }
