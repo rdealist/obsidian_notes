@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p \"00_Inbox\" \"10_Projects\" \"20_Areas\" \"30_Resources\" \"40_Archives\" \"90_System/Templates\" \"90_System/Attachments\" \"90_System/DailyNotes\")",
+      "Write(90_System/Templates/Daily Note Template.md)",
+      "Write(90_System/Templates/Project Template.md)",
+      "Write(90_System/Templates/Evergreen Note Template.md)",
+      "Write(Workflow Guide.md)",
+      "Skill",
+      "Bash(mkdir -p docs/plans)",
+      "Write(docs/plans/2026-01-17-git-init.md)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

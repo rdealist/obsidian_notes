@@ -1,0 +1,41 @@
+{
+  "id": "fc6ee4f6-fe02-42d7-88bc-933ae5c11da3",
+  "title": "我需要将当前文件夹打造成基于obsidian的工作流，需要做什么",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1768635885377,
+  "updatedAt": 1768646478447,
+  "lastResponseAt": 1768636110544,
+  "sessionId": "fc6ee4f6-fe02-42d7-88bc-933ae5c11da3",
+  "sdkSessionId": "fc6ee4f6-fe02-42d7-88bc-933ae5c11da3",
+  "usage": {
+    "model": "gemini-3-flash-preview",
+    "inputTokens": 126146,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 42407,
+    "contextWindow": 200000,
+    "contextTokens": 168553,
+    "percentage": 84
+  },
+  "toolDiffData": {
+    "Write-1768636089936873000-375": {
+      "filePath": "90_System/Templates/Daily Note Template.md",
+      "originalContent": "",
+      "newContent": "---\ncreated: {{date}} {{time}}\ntype: daily\ntags:\n  - daily-log\n---\n# {{date}}\n\n## 🎯 今日目标\n- [ ]\n\n## ⚡ 关键记录\n-\n\n## 📝 随笔\n-\n\n## ✅ 今日复盘\n-\n"
+    },
+    "Write-1768636090537022000-376": {
+      "filePath": "90_System/Templates/Project Template.md",
+      "originalContent": "",
+      "newContent": "---\ncreated: {{date}}\nstatus: active\npriority: medium\ntags:\n  - project\n---\n# 项目名称：\n\n## 📌 项目描述\n>\n\n## 📅 关键里程碑\n- [ ]\n\n## 📂 相关资源\n-\n\n## 📝 任务列表\n- [ ]\n"
+    },
+    "Write-1768636091049417000-377": {
+      "filePath": "90_System/Templates/Evergreen Note Template.md",
+      "originalContent": "",
+      "newContent": "---\ncreated: {{date}}\nupdated: {{date}}\ntags:\n  - evergreen\n---\n# 笔记标题\n\n## 💡 核心观点\n>\n\n## 🔗 相关笔记\n- [[ ]]\n\n## 📚 参考文献\n-\n"
+    },
+    "Write-1768636104975488000-378": {
+      "filePath": "Workflow Guide.md",
+      "originalContent": "",
+      "newContent": "# 🚀 Obsidian 生产力工作流指南\n\n欢迎来到你的全新数字大脑！这套系统基于 PARA 架构，旨在帮助你减少管理开销，专注于思考和执行。\n\n## 📂 目录说明\n- **[[00_Inbox]]**: 你的“收件箱”。所有临时性的、未分类的笔记先丢这里，每周清空。\n- **[[10_Projects]]**: 正在进行的项目。每个项目应有明确的目标和截止日期。\n- **[[20_Areas]]**: 长期关注的领域。如“财务”、“健康”、“职业技能”。\n- **[[30_Resources]]**: 你的知识库。感兴趣的各种主题、参考资料、代码片段。\n- **[[40_Archives]]**: 档案馆。存放已完成的项目或不再活跃的领域。\n- **[[90_System]]**: 系统后台。存放附件、模板和日记。\n\n## 🔄 核心循环 (Workflow)\n\n### 1. 收集 (Capture)\n- 产生灵感时，直接在 `00_Inbox` 创建笔记，或使用 `Daily Note` 快速记录。\n- **原则**：先记录，后整理。\n\n### 2. 处理 (Clarify)\n- 定期（建议每天或每周）查看 `00_Inbox`。\n- 将笔记移动到相应的 `10_Projects` 或 `20_Areas`。\n- 如果笔记已经发展成熟，使用 `[[Evergreen Note Template]]` 将其转化为长青笔记放入 `30_Resources`。\n\n### 3. 执行 (Do)\n- 在 `10_Projects` 中拆解任务。\n- 利用 `Daily Note` 规划当天的 3 个关键目标。\n\n### 4. 存档 (Archive)\n- 项目结束后，整文件夹移动到 `40_Archives`。\n\n## 🛠️ 建议安装的插件\n为发挥此结构的最大威力，建议在 Obsidian 插件市场安装：\n1. **Templater**: 自动调用 `90_System/Templates` 下的模板。\n2. **Dataview**: 自动汇总项目进度和任务。\n3. **Periodic Notes**: 更好的日记/周记管理。\n4. **Recent Files**: 快速回到上次的工作位置。\n\n---\n*你可以从创建一个新的 [[Daily Note]] 开始你的第一天！*\n"
+    }
+  }
+}
