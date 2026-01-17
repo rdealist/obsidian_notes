@@ -6,7 +6,10 @@
       "Bash(npx quartz build:*)",
       "Bash(command:*)",
       "Bash(source:*)",
-      "Bash(nvm use:*)"
+      "Bash(nvm use:*)",
+      "Bash(pkill:*)",
+      "Bash(rm:*)",
+      "Bash(npx create-next-app@latest:*)"
     ]
   }
 }
