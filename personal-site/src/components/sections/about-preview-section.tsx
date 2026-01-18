@@ -7,33 +7,17 @@ import { ArrowRight, Code, Cpu, Zap, Users } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
+import type { Translations } from "@/i18n/translations";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const highlights = [
-  {
-    icon: Cpu,
-    title: "AI/ML Enthusiast",
-    description: "Deep diving into LLMs, agents, and practical AI applications",
-  },
-  {
-    icon: Code,
-    title: "Full-Stack Developer",
-    description: "Building products from idea to deployment",
-  },
-  {
-    icon: Zap,
-    title: "Fast Learner",
-    description: "Always exploring new technologies and methodologies",
-  },
-  {
-    icon: Users,
-    title: "Team Player",
-    description: "Collaborating to build impactful solutions",
-  },
-];
+const highlightIcons = [Cpu, Code, Zap, Users];
 
-export function AboutPreviewSection() {
+type AboutPreviewSectionProps = {
+  content: Translations["home"]["aboutPreview"];
+};
+
+export function AboutPreviewSection({ content }: AboutPreviewSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
 
@@ -86,15 +70,14 @@ export function AboutPreviewSection() {
         {/* Section Header */}
         <div className="about-title text-center mb-16">
           <span className="text-primary text-sm font-medium tracking-wider uppercase">
-            About Me
+            {content.label}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mt-4 mb-6">
-            Crafting the Future with{" "}
-            <span className="text-gradient">AI</span>
+            {content.title}{" "}
+            <span className="text-gradient">{content.titleHighlight}</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            A passionate technologist exploring the boundaries of artificial intelligence
-            and building products that make a difference.
+            {content.description}
           </p>
         </div>
 
@@ -103,7 +86,9 @@ export function AboutPreviewSection() {
           ref={cardsRef}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"
         >
-          {highlights.map((item, index) => (
+          {content.highlights.map((item, index) => {
+            const Icon = highlightIcons[index];
+            return (
             <div
               key={index}
               className={cn(
@@ -113,12 +98,13 @@ export function AboutPreviewSection() {
               )}
             >
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                <item.icon className="w-6 h-6 text-primary" />
+                {Icon ? <Icon className="w-6 h-6 text-primary" /> : null}
               </div>
               <h3 className="font-semibold mb-2">{item.title}</h3>
               <p className="text-sm text-muted-foreground">{item.description}</p>
             </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* CTA */}
@@ -131,7 +117,7 @@ export function AboutPreviewSection() {
               "hover:bg-primary/10 transition-all group"
             )}
           >
-            Learn more about me
+            {content.cta}
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>

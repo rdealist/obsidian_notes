@@ -5,17 +5,19 @@ import { ProjectsPreviewSection } from "@/components/sections/projects-preview-s
 import { SkillsPreviewSection } from "@/components/sections/skills-preview-section";
 import { BlogPreviewSection } from "@/components/sections/blog-preview-section";
 import { CTASection } from "@/components/sections/cta-section";
+import { getServerTranslations } from "@/i18n/server";
 
 export default function HomePage() {
+  const { locale, t } = getServerTranslations();
   return (
     <>
       <ParticleBackground />
-      <HeroSection />
-      <AboutPreviewSection />
-      <ProjectsPreviewSection />
-      <SkillsPreviewSection />
-      <BlogPreviewSection />
-      <CTASection />
+      <HeroSection content={t.home.hero} />
+      <AboutPreviewSection content={t.home.aboutPreview} />
+      <ProjectsPreviewSection content={t.home.projectsPreview} />
+      <SkillsPreviewSection content={t.home.skillsPreview} />
+      <BlogPreviewSection locale={locale} content={t.home.blogPreview} />
+      <CTASection content={t.home.cta} />
     </>
   );
 }

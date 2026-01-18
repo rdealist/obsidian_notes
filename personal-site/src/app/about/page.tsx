@@ -10,60 +10,32 @@ import {
   Coffee,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getServerTranslations } from "@/i18n/server";
 
 export const metadata: Metadata = {
   title: "About",
   description: "Learn more about Stone - AI Explorer & Product Builder",
 };
 
-const timeline = [
-  {
-    year: "2024",
-    title: "AI Product Builder",
-    description: "Building AI-powered products and exploring LLM applications",
-    icon: Rocket,
-  },
-  {
-    year: "2023",
-    title: "Deep Dive into AI",
-    description: "Started intensive learning journey in AI/ML and LLMs",
-    icon: Brain,
-  },
-  {
-    year: "2022",
-    title: "Tech Entrepreneur",
-    description: "Founded and scaled multiple tech products",
-    icon: Briefcase,
-  },
-  {
-    year: "2020",
-    title: "Full-Stack Developer",
-    description: "Building web applications and mastering modern frameworks",
-    icon: Code,
-  },
-];
-
-const interests = [
-  { name: "AI Research", icon: Brain },
-  { name: "Product Design", icon: Rocket },
-  { name: "Open Source", icon: Code },
-  { name: "Coffee", icon: Coffee },
-];
+const timelineIcons = [Rocket, Brain, Briefcase, Code];
+const interestIcons = [Brain, Rocket, Code, Coffee];
 
 export default function AboutPage() {
+  const { t } = getServerTranslations();
   return (
     <div className="pt-24 pb-16">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
           <span className="text-primary text-sm font-medium tracking-wider uppercase">
-            About Me
+            {t.pages.about.header.label}
           </span>
           <h1 className="text-4xl md:text-5xl font-bold mt-4 mb-6">
-            Hi, I'm <span className="text-gradient">Stone</span>
+            {t.pages.about.header.title}{" "}
+            <span className="text-gradient">{t.pages.about.header.name}</span>
           </h1>
           <p className="text-lg text-muted-foreground">
-            AI Explorer, Product Builder, and Lifelong Learner
+            {t.pages.about.header.subtitle}
           </p>
         </div>
 
@@ -74,40 +46,28 @@ export default function AboutPage() {
             <div className="glass rounded-3xl p-8 md:p-12">
               <div className="flex items-center gap-2 text-muted-foreground mb-4">
                 <MapPin className="w-4 h-4" />
-                <span>Based in China</span>
+                <span>{t.pages.about.location}</span>
               </div>
 
               <div className="prose prose-lg dark:prose-invert max-w-none">
-                <p>
-                  I'm passionate about the intersection of{" "}
-                  <strong>artificial intelligence</strong> and{" "}
-                  <strong>practical product development</strong>. My journey in tech
-                  has taken me from full-stack development to AI/ML exploration,
-                  always with a focus on building things that matter.
-                </p>
-                <p>
-                  Currently, I'm focused on understanding and applying{" "}
-                  <strong>Large Language Models (LLMs)</strong>, building AI agents,
-                  and creating products that leverage these powerful technologies.
-                </p>
-                <p>
-                  I believe in <strong>learning in public</strong> - sharing my
-                  journey, insights, and experiments with the community. This site
-                  is a reflection of that philosophy.
-                </p>
+                {t.pages.about.bio.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
               </div>
             </div>
           </section>
 
           {/* Timeline */}
           <section className="mb-16">
-            <h2 className="text-2xl font-bold mb-8 text-center">My Journey</h2>
+            <h2 className="text-2xl font-bold mb-8 text-center">{t.pages.about.timelineTitle}</h2>
             <div className="relative">
               {/* Line */}
               <div className="absolute left-8 top-0 bottom-0 w-px bg-border hidden md:block" />
 
               <div className="space-y-8">
-                {timeline.map((item, index) => (
+                {t.pages.about.timeline.map((item, index) => {
+                  const Icon = timelineIcons[index];
+                  return (
                   <div key={index} className="relative flex gap-6">
                     {/* Icon */}
                     <div
@@ -116,7 +76,7 @@ export default function AboutPage() {
                         "bg-primary/10 relative z-10"
                       )}
                     >
-                      <item.icon className="w-6 h-6 text-primary" />
+                      {Icon ? <Icon className="w-6 h-6 text-primary" /> : null}
                     </div>
 
                     {/* Content */}
@@ -130,7 +90,8 @@ export default function AboutPage() {
                       </p>
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </section>
@@ -138,10 +99,12 @@ export default function AboutPage() {
           {/* Interests */}
           <section>
             <h2 className="text-2xl font-bold mb-8 text-center">
-              Things I <Heart className="w-6 h-6 inline text-accent" />
+              {t.pages.about.interestsTitle} <Heart className="w-6 h-6 inline text-accent" />
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {interests.map((interest, index) => (
+              {t.pages.about.interests.map((interest, index) => {
+                const Icon = interestIcons[index];
+                return (
                 <div
                   key={index}
                   className={cn(
@@ -150,11 +113,12 @@ export default function AboutPage() {
                   )}
                 >
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                    <interest.icon className="w-6 h-6 text-primary" />
+                    {Icon ? <Icon className="w-6 h-6 text-primary" /> : null}
                   </div>
                   <span className="font-medium">{interest.name}</span>
                 </div>
-              ))}
+                );
+              })}
             </div>
           </section>
         </div>

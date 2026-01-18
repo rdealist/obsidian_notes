@@ -1,23 +1,44 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import type { Locale } from "@/i18n/config";
+import { LOCALE_COOKIE } from "@/i18n/config";
 
-const languages = [
-  { code: "zh", label: "中文", flag: "🇨🇳" },
-  { code: "en", label: "EN", flag: "🇺🇸" },
-];
+const languageFlags: Record<Locale, string> = {
+  zh: "🇨🇳",
+  en: "🇺🇸",
+};
 
-export function LanguageToggle() {
-  const [currentLang, setCurrentLang] = useState("zh");
+type LanguageToggleProps = {
+  locale: Locale;
+  labels: {
+    zh: string;
+    en: string;
+  };
+};
+
+export function LanguageToggle({ locale, labels }: LanguageToggleProps) {
+  const router = useRouter();
+  const [currentLang, setCurrentLang] = useState<Locale>(locale);
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleLanguageChange = (langCode: string) => {
+  useEffect(() => {
+    setCurrentLang(locale);
+  }, [locale]);
+
+  const handleLanguageChange = (langCode: Locale) => {
     setCurrentLang(langCode);
     setIsOpen(false);
-    // In a real app, this would update next-intl locale
-    // For now, we just update state
+    document.cookie = `${LOCALE_COOKIE}=${langCode}; path=/; max-age=31536000`;
+    router.refresh();
   };
+
+  const languages = [
+    { code: "zh" as const, label: labels.zh, flag: languageFlags.zh },
+    { code: "en" as const, label: labels.en, flag: languageFlags.en },
+  ];
 
   const currentLanguage = languages.find((l) => l.code === currentLang);
 

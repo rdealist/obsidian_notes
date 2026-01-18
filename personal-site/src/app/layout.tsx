@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { getServerTranslations } from "@/i18n/server";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -50,8 +51,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { locale, t } = getServerTranslations();
   return (
-    <html lang="zh" suppressHydrationWarning>
+    <html lang={locale === "zh" ? "zh" : "en"} suppressHydrationWarning>
       <body
         className={`${spaceGrotesk.variable} ${firaCode.variable} antialiased min-h-screen flex flex-col`}
       >
@@ -61,9 +63,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
+          <Navbar locale={locale} nav={t.nav} />
           <main className="flex-1">{children}</main>
-          <Footer />
+          <Footer footer={t.footer} brand={t.nav.brand} />
         </ThemeProvider>
       </body>
     </html>

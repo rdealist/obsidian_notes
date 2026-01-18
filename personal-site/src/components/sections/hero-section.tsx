@@ -5,8 +5,13 @@ import Link from "next/link";
 import { ArrowRight, BookOpen, Lightbulb, Sparkles } from "lucide-react";
 import { gsap } from "gsap";
 import { cn } from "@/lib/utils";
+import type { Translations } from "@/i18n/translations";
 
-export function HeroSection() {
+type HeroSectionProps = {
+  content: Translations["home"]["hero"];
+};
+
+export function HeroSection({ content }: HeroSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
@@ -54,7 +59,7 @@ export function HeroSection() {
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8">
           <Sparkles className="w-4 h-4 text-primary" />
           <span className="text-sm text-muted-foreground">
-            AI Explorer & Product Builder
+            {content.badge}
           </span>
         </div>
 
@@ -63,11 +68,11 @@ export function HeroSection() {
           ref={titleRef}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
         >
-          Hi, I'm{" "}
-          <span className="text-gradient">Stone</span>
+          {content.greeting}{" "}
+          <span className="text-gradient">{content.name}</span>
           <br />
           <span className="text-muted-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
-            Exploring AI, Building Products
+            {content.tagline}
           </span>
         </h1>
 
@@ -76,8 +81,7 @@ export function HeroSection() {
           ref={subtitleRef}
           className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
         >
-          I'm passionate about the intersection of artificial intelligence and practical applications.
-          Here I share my learning journey, projects, and insights.
+          {content.subtitle}
         </p>
 
         {/* CTA Buttons */}
@@ -92,7 +96,7 @@ export function HeroSection() {
             )}
           >
             <Lightbulb className="w-5 h-5" />
-            View Projects
+            {content.ctaProjects}
             <ArrowRight className="w-4 h-4" />
           </Link>
 
@@ -105,13 +109,13 @@ export function HeroSection() {
             )}
           >
             <BookOpen className="w-5 h-5" />
-            Explore Notes
+            {content.ctaNotes}
           </Link>
         </div>
 
         {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
-          <span className="text-sm text-muted-foreground">Scroll to explore</span>
+          <span className="text-sm text-muted-foreground">{content.scroll}</span>
           <svg
             className="w-5 h-5 text-muted-foreground"
             fill="none"

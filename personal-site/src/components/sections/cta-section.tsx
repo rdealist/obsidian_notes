@@ -6,10 +6,15 @@ import { ArrowRight, Mail, MessageSquare, Rocket } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
+import type { Translations } from "@/i18n/translations";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export function CTASection() {
+type CTASectionProps = {
+  content: Translations["home"]["cta"];
+};
+
+export function CTASection({ content }: CTASectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -55,13 +60,12 @@ export function CTASection() {
             </div>
 
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Let's Build Something{" "}
-              <span className="text-gradient">Amazing</span>
+              {content.title}{" "}
+              <span className="text-gradient">{content.titleHighlight}</span>
             </h2>
 
             <p className="text-muted-foreground text-lg mb-8 max-w-xl mx-auto">
-              Have a project in mind? Want to collaborate? Or just want to say hi?
-              I'd love to hear from you!
+              {content.description}
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4">
@@ -73,11 +77,11 @@ export function CTASection() {
                   "hover:opacity-90 transition-all hover:scale-105",
                   "glow-primary"
                 )}
-              >
-                <Mail className="w-5 h-5" />
-                Get in Touch
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+                >
+                  <Mail className="w-5 h-5" />
+                {content.primary}
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
 
               <Link
                 href="/resume"
@@ -86,9 +90,9 @@ export function CTASection() {
                   "glass font-medium",
                   "hover:bg-primary/10 transition-all"
                 )}
-              >
-                <MessageSquare className="w-5 h-5" />
-                View Resume
+                >
+                  <MessageSquare className="w-5 h-5" />
+                {content.secondary}
               </Link>
             </div>
           </div>

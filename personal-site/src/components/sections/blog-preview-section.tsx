@@ -6,39 +6,20 @@ import { ArrowRight, Calendar, Clock, Tag } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
+import type { Locale } from "@/i18n/config";
+import type { Translations } from "@/i18n/translations";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const recentPosts = [
-  {
-    title: "Understanding Transformer Architecture",
-    excerpt: "A deep dive into the attention mechanism and how transformers revolutionized NLP.",
-    date: "2025-01-15",
-    readTime: "8 min read",
-    tags: ["AI", "Deep Learning"],
-    slug: "understanding-transformers",
-  },
-  {
-    title: "Building AI Agents with LangChain",
-    excerpt: "Learn how to create autonomous agents that can use tools and make decisions.",
-    date: "2025-01-10",
-    readTime: "12 min read",
-    tags: ["LangChain", "Agents"],
-    slug: "ai-agents-langchain",
-  },
-  {
-    title: "RAG Systems: Best Practices",
-    excerpt: "Retrieval-Augmented Generation explained with practical implementation tips.",
-    date: "2025-01-05",
-    readTime: "10 min read",
-    tags: ["RAG", "LLM"],
-    slug: "rag-best-practices",
-  },
-];
+type BlogPreviewSectionProps = {
+  locale: Locale;
+  content: Translations["home"]["blogPreview"];
+};
 
-export function BlogPreviewSection() {
+export function BlogPreviewSection({ locale, content }: BlogPreviewSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
+  const dateLocale = locale === "zh" ? "zh-CN" : "en-US";
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
@@ -87,14 +68,14 @@ export function BlogPreviewSection() {
         {/* Section Header */}
         <div className="blog-title text-center mb-16">
           <span className="text-primary text-sm font-medium tracking-wider uppercase">
-            Latest Posts
+            {content.label}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mt-4 mb-6">
-            From the{" "}
-            <span className="text-gradient">Blog</span>
+            {content.title}{" "}
+            <span className="text-gradient">{content.titleHighlight}</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Thoughts, tutorials, and insights on AI, technology, and product building.
+            {content.description}
           </p>
         </div>
 
@@ -103,7 +84,7 @@ export function BlogPreviewSection() {
           ref={cardsRef}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
         >
-          {recentPosts.map((post, index) => (
+          {content.posts.map((post, index) => (
             <Link
               key={index}
               href={`/blog/${post.slug}`}
@@ -117,7 +98,7 @@ export function BlogPreviewSection() {
               <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
                 <span className="flex items-center gap-1">
                   <Calendar className="w-4 h-4" />
-                  {new Date(post.date).toLocaleDateString("en-US", {
+                  {new Date(post.date).toLocaleDateString(dateLocale, {
                     month: "short",
                     day: "numeric",
                     year: "numeric",
@@ -165,7 +146,7 @@ export function BlogPreviewSection() {
               "hover:bg-primary/10 transition-all group"
             )}
           >
-            View all posts
+            {content.cta}
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>

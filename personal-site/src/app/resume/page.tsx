@@ -10,78 +10,15 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getServerTranslations } from "@/i18n/server";
 
 export const metadata: Metadata = {
   title: "Resume",
   description: "Professional resume and experience",
 };
 
-const experience = [
-  {
-    title: "AI Product Builder",
-    company: "Independent",
-    period: "2024 - Present",
-    location: "Remote",
-    description: [
-      "Building AI-powered products and applications",
-      "Exploring LLM capabilities and developing AI agents",
-      "Creating tools for developers and businesses",
-    ],
-  },
-  {
-    title: "Tech Entrepreneur",
-    company: "Startup",
-    period: "2022 - 2024",
-    location: "China",
-    description: [
-      "Founded and scaled multiple tech products",
-      "Led product development and technical strategy",
-      "Managed cross-functional teams",
-    ],
-  },
-  {
-    title: "Full-Stack Developer",
-    company: "Tech Company",
-    period: "2020 - 2022",
-    location: "China",
-    description: [
-      "Developed web applications using React and Node.js",
-      "Implemented CI/CD pipelines and DevOps practices",
-      "Collaborated with design and product teams",
-    ],
-  },
-];
-
-const education = [
-  {
-    degree: "Bachelor's Degree",
-    school: "University",
-    period: "2016 - 2020",
-    field: "Computer Science",
-  },
-];
-
-const certifications = [
-  {
-    name: "AWS Certified Solutions Architect",
-    issuer: "Amazon Web Services",
-    date: "2023",
-  },
-  {
-    name: "Google Cloud Professional",
-    issuer: "Google",
-    date: "2022",
-  },
-];
-
-const skills = {
-  "AI/ML": ["LLMs", "Prompt Engineering", "RAG", "LangChain", "Fine-tuning"],
-  Frontend: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
-  Backend: ["Python", "Node.js", "FastAPI", "PostgreSQL"],
-  DevOps: ["Docker", "Git", "AWS", "Vercel", "CI/CD"],
-};
-
 export default function ResumePage() {
+  const { t } = getServerTranslations();
   return (
     <div className="pt-24 pb-16">
       <div className="container mx-auto px-4">
@@ -91,19 +28,19 @@ export default function ResumePage() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
               <div>
                 <h1 className="text-3xl md:text-4xl font-bold mb-2">
-                  <span className="text-gradient">Stone</span>
+                  <span className="text-gradient">{t.pages.resume.header.name}</span>
                 </h1>
                 <p className="text-xl text-muted-foreground mb-4">
-                  AI Explorer & Product Builder
+                  {t.pages.resume.header.title}
                 </p>
                 <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
                   <span className="flex items-center gap-1">
                     <MapPin className="w-4 h-4" />
-                    China
+                    {t.pages.resume.header.location}
                   </span>
                   <span className="flex items-center gap-1">
                     <Mail className="w-4 h-4" />
-                    your@email.com
+                    {t.pages.resume.header.email}
                   </span>
                 </div>
               </div>
@@ -117,7 +54,7 @@ export default function ResumePage() {
                 )}
               >
                 <Download className="w-5 h-5" />
-                Download PDF
+                {t.pages.resume.header.download}
               </button>
             </div>
           </div>
@@ -126,11 +63,11 @@ export default function ResumePage() {
           <section className="mb-12">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <Briefcase className="w-5 h-5 text-primary" />
-              Experience
+              {t.pages.resume.sections.experience}
             </h2>
 
             <div className="space-y-6">
-              {experience.map((job, index) => (
+              {t.pages.resume.experience.map((job, index) => (
                 <div key={index} className="glass rounded-2xl p-6">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
                     <div>
@@ -168,16 +105,16 @@ export default function ResumePage() {
           <section className="mb-12">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <Award className="w-5 h-5 text-primary" />
-              Skills
+              {t.pages.resume.sections.skills}
             </h2>
 
             <div className="glass rounded-2xl p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {Object.entries(skills).map(([category, skillList]) => (
-                  <div key={category}>
-                    <h3 className="font-medium mb-3">{category}</h3>
+                {t.pages.resume.skills.map((skillGroup) => (
+                  <div key={skillGroup.category}>
+                    <h3 className="font-medium mb-3">{skillGroup.category}</h3>
                     <div className="flex flex-wrap gap-2">
-                      {skillList.map((skill) => (
+                      {skillGroup.items.map((skill) => (
                         <span
                           key={skill}
                           className="px-3 py-1.5 text-sm rounded-lg bg-primary/10 text-primary"
@@ -196,11 +133,11 @@ export default function ResumePage() {
           <section className="mb-12">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <GraduationCap className="w-5 h-5 text-primary" />
-              Education
+              {t.pages.resume.sections.education}
             </h2>
 
             <div className="space-y-4">
-              {education.map((edu, index) => (
+              {t.pages.resume.education.map((edu, index) => (
                 <div key={index} className="glass rounded-2xl p-6">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
@@ -221,11 +158,11 @@ export default function ResumePage() {
           <section>
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <Award className="w-5 h-5 text-primary" />
-              Certifications
+              {t.pages.resume.sections.certifications}
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {certifications.map((cert, index) => (
+              {t.pages.resume.certifications.map((cert, index) => (
                 <div
                   key={index}
                   className="glass rounded-2xl p-4 flex items-center justify-between"
