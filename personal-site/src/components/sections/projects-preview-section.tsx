@@ -6,38 +6,15 @@ import { ArrowRight, ExternalLink, Github, Star } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
+import type { Translations } from "@/i18n/translations";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const featuredProjects = [
-  {
-    title: "AI Agent Framework",
-    description: "A flexible framework for building autonomous AI agents with tool use capabilities.",
-    tags: ["Python", "LangChain", "OpenAI"],
-    image: "/projects/agent-framework.png",
-    github: "https://github.com/your-username/agent-framework",
-    demo: "https://demo.example.com",
-    featured: true,
-  },
-  {
-    title: "Smart Document Parser",
-    description: "Extract structured data from documents using vision models and OCR.",
-    tags: ["TypeScript", "Next.js", "Claude"],
-    image: "/projects/doc-parser.png",
-    github: "https://github.com/your-username/doc-parser",
-    featured: true,
-  },
-  {
-    title: "Prompt Library",
-    description: "A curated collection of effective prompts for various AI tasks.",
-    tags: ["React", "MDX", "Tailwind"],
-    image: "/projects/prompt-lib.png",
-    demo: "https://prompts.example.com",
-    featured: true,
-  },
-];
+type ProjectsPreviewSectionProps = {
+  content: Translations["home"]["projectsPreview"];
+};
 
-export function ProjectsPreviewSection() {
+export function ProjectsPreviewSection({ content }: ProjectsPreviewSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
 
@@ -89,14 +66,14 @@ export function ProjectsPreviewSection() {
         {/* Section Header */}
         <div className="projects-title text-center mb-16">
           <span className="text-primary text-sm font-medium tracking-wider uppercase">
-            Featured Projects
+            {content.label}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mt-4 mb-6">
-            Things I've{" "}
-            <span className="text-gradient">Built</span>
+            {content.title}{" "}
+            <span className="text-gradient">{content.titleHighlight}</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            A selection of projects that showcase my interests in AI and product development.
+            {content.description}
           </p>
         </div>
 
@@ -105,7 +82,7 @@ export function ProjectsPreviewSection() {
           ref={cardsRef}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
         >
-          {featuredProjects.map((project, index) => (
+          {content.projects.map((project, index) => (
             <div
               key={index}
               className={cn(
@@ -144,8 +121,8 @@ export function ProjectsPreviewSection() {
 
                 {/* Links */}
                 <div className="flex items-center gap-3">
-                  {project.github && (
-                    <a
+                    {project.github && (
+                      <a
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -154,8 +131,8 @@ export function ProjectsPreviewSection() {
                       <Github className="w-5 h-5" />
                     </a>
                   )}
-                  {project.demo && (
-                    <a
+                    {project.demo && (
+                      <a
                       href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -180,7 +157,7 @@ export function ProjectsPreviewSection() {
               "hover:bg-primary/10 transition-all group"
             )}
           >
-            View all projects
+            {content.cta}
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>

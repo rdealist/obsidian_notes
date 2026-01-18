@@ -6,37 +6,17 @@ import { ArrowRight, Brain, Code2, Database, Globe, Layers, Terminal } from "luc
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
+import type { Translations } from "@/i18n/translations";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const skillCategories = [
-  {
-    title: "AI & Machine Learning",
-    icon: Brain,
-    skills: ["LLM/GPT", "LangChain", "RAG", "Fine-tuning", "Prompt Engineering", "AI Agents"],
-    color: "primary",
-  },
-  {
-    title: "Frontend",
-    icon: Globe,
-    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    color: "secondary",
-  },
-  {
-    title: "Backend",
-    icon: Database,
-    skills: ["Python", "Node.js", "FastAPI", "PostgreSQL", "Redis"],
-    color: "accent",
-  },
-  {
-    title: "DevOps & Tools",
-    icon: Terminal,
-    skills: ["Docker", "Git", "Vercel", "AWS", "CI/CD"],
-    color: "primary",
-  },
-];
+const skillIcons = [Brain, Globe, Database, Terminal];
 
-export function SkillsPreviewSection() {
+type SkillsPreviewSectionProps = {
+  content: Translations["home"]["skillsPreview"];
+};
+
+export function SkillsPreviewSection({ content }: SkillsPreviewSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
 
@@ -87,14 +67,14 @@ export function SkillsPreviewSection() {
         {/* Section Header */}
         <div className="skills-title text-center mb-16">
           <span className="text-primary text-sm font-medium tracking-wider uppercase">
-            Skills & Expertise
+            {content.label}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mt-4 mb-6">
-            Technologies I{" "}
-            <span className="text-gradient">Work With</span>
+            {content.title}{" "}
+            <span className="text-gradient">{content.titleHighlight}</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            A blend of AI/ML expertise and full-stack development skills.
+            {content.description}
           </p>
         </div>
 
@@ -103,7 +83,9 @@ export function SkillsPreviewSection() {
           ref={cardsRef}
           className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"
         >
-          {skillCategories.map((category, index) => (
+          {content.categories.map((category, index) => {
+            const Icon = skillIcons[index];
+            return (
             <div
               key={index}
               className={cn(
@@ -111,33 +93,34 @@ export function SkillsPreviewSection() {
                 "hover:border-primary/50 transition-all duration-300",
                 "group"
               )}
-            >
+              >
               <div className="flex items-center gap-4 mb-4">
                 <div className={cn(
                   "w-12 h-12 rounded-xl flex items-center justify-center",
                   "bg-primary/10 group-hover:bg-primary/20 transition-colors"
                 )}>
-                  <category.icon className="w-6 h-6 text-primary" />
+                  {Icon ? <Icon className="w-6 h-6 text-primary" /> : null}
                 </div>
                 <h3 className="font-semibold text-lg">{category.title}</h3>
               </div>
 
               <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill) => (
-                  <span
-                    key={skill}
+                  {category.skills.map((skill) => (
+                    <span
+                      key={skill}
                     className={cn(
                       "px-3 py-1.5 text-sm rounded-lg",
                       "bg-muted hover:bg-primary/10 transition-colors",
                       "cursor-default"
                     )}
-                  >
-                    {skill}
-                  </span>
-                ))}
+                    >
+                      {skill}
+                    </span>
+                  ))}
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* CTA */}
@@ -150,7 +133,7 @@ export function SkillsPreviewSection() {
               "hover:bg-primary/10 transition-all group"
             )}
           >
-            See all skills & prompts
+            {content.cta}
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>

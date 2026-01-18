@@ -2,71 +2,17 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { ExternalLink, Github, Star, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getServerTranslations } from "@/i18n/server";
 
 export const metadata: Metadata = {
   title: "Projects",
   description: "Projects and experiments by Stone",
 };
 
-const projects = [
-  {
-    title: "AI Agent Framework",
-    description:
-      "A flexible framework for building autonomous AI agents with tool use capabilities. Supports multiple LLM providers and custom tool definitions.",
-    tags: ["Python", "LangChain", "OpenAI", "Claude"],
-    github: "https://github.com/your-username/agent-framework",
-    demo: "https://demo.example.com",
-    featured: true,
-    status: "Active",
-  },
-  {
-    title: "Smart Document Parser",
-    description:
-      "Extract structured data from documents using vision models and OCR. Supports PDFs, images, and scanned documents.",
-    tags: ["TypeScript", "Next.js", "Claude Vision", "Tesseract"],
-    github: "https://github.com/your-username/doc-parser",
-    featured: true,
-    status: "Active",
-  },
-  {
-    title: "Prompt Library",
-    description:
-      "A curated collection of effective prompts for various AI tasks. Includes categorization, search, and version control.",
-    tags: ["React", "MDX", "Tailwind", "Vercel"],
-    demo: "https://prompts.example.com",
-    featured: true,
-    status: "Active",
-  },
-  {
-    title: "RAG Pipeline",
-    description:
-      "Production-ready RAG system with hybrid search, re-ranking, and citation support.",
-    tags: ["Python", "FastAPI", "Pinecone", "LlamaIndex"],
-    github: "https://github.com/your-username/rag-pipeline",
-    status: "Beta",
-  },
-  {
-    title: "AI Chat Widget",
-    description:
-      "Embeddable chat widget powered by LLMs. Easy integration with any website.",
-    tags: ["TypeScript", "Web Components", "OpenAI"],
-    github: "https://github.com/your-username/chat-widget",
-    demo: "https://chat.example.com",
-    status: "Active",
-  },
-  {
-    title: "Model Benchmark Tool",
-    description:
-      "Compare and evaluate different LLM models on custom datasets with detailed metrics.",
-    tags: ["Python", "Streamlit", "Pandas"],
-    github: "https://github.com/your-username/model-benchmark",
-    status: "Archived",
-  },
-];
-
 export default function ProjectsPage() {
-  const featuredProjects = projects.filter((p) => p.featured);
-  const otherProjects = projects.filter((p) => !p.featured);
+  const { t } = getServerTranslations();
+  const featuredProjects = t.pages.projects.projects.filter((p) => p.featured);
+  const otherProjects = t.pages.projects.projects.filter((p) => !p.featured);
 
   return (
     <div className="pt-24 pb-16">
@@ -74,13 +20,14 @@ export default function ProjectsPage() {
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
           <span className="text-primary text-sm font-medium tracking-wider uppercase">
-            My Work
+            {t.pages.projects.header.label}
           </span>
           <h1 className="text-4xl md:text-5xl font-bold mt-4 mb-6">
-            Projects & <span className="text-gradient">Experiments</span>
+            {t.pages.projects.header.title}{" "}
+            <span className="text-gradient">{t.pages.projects.header.titleHighlight}</span>
           </h1>
           <p className="text-lg text-muted-foreground">
-            A collection of things I've built, explored, and experimented with.
+            {t.pages.projects.header.description}
           </p>
         </div>
 
@@ -88,7 +35,7 @@ export default function ProjectsPage() {
         <section className="mb-16">
           <h2 className="text-2xl font-bold mb-8 flex items-center gap-2">
             <Star className="w-5 h-5 text-primary" />
-            Featured Projects
+            {t.pages.projects.featuredTitle}
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -107,12 +54,12 @@ export default function ProjectsPage() {
                     <span
                       className={cn(
                         "px-2 py-1 text-xs rounded-full",
-                        project.status === "Active" && "bg-green-500/20 text-green-500",
-                        project.status === "Beta" && "bg-yellow-500/20 text-yellow-500",
-                        project.status === "Archived" && "bg-gray-500/20 text-gray-500"
+                        project.status === "active" && "bg-green-500/20 text-green-500",
+                        project.status === "beta" && "bg-yellow-500/20 text-yellow-500",
+                        project.status === "archived" && "bg-gray-500/20 text-gray-500"
                       )}
                     >
-                      {project.status}
+                      {t.pages.projects.statuses[project.status]}
                     </span>
                   </div>
                 </div>
@@ -153,7 +100,7 @@ export default function ProjectsPage() {
                         className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
                       >
                         <Github className="w-4 h-4" />
-                        Code
+                        {t.pages.projects.linkLabels.code}
                       </a>
                     )}
                     {project.demo && (
@@ -164,7 +111,7 @@ export default function ProjectsPage() {
                         className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
                       >
                         <ExternalLink className="w-4 h-4" />
-                        Demo
+                        {t.pages.projects.linkLabels.demo}
                       </a>
                     )}
                   </div>
@@ -176,7 +123,7 @@ export default function ProjectsPage() {
 
         {/* Other Projects */}
         <section>
-          <h2 className="text-2xl font-bold mb-8">Other Projects</h2>
+          <h2 className="text-2xl font-bold mb-8">{t.pages.projects.otherTitle}</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {otherProjects.map((project, index) => (
@@ -196,12 +143,12 @@ export default function ProjectsPage() {
                       <span
                         className={cn(
                           "px-2 py-0.5 text-xs rounded-full",
-                          project.status === "Active" && "bg-green-500/20 text-green-500",
-                          project.status === "Beta" && "bg-yellow-500/20 text-yellow-500",
-                          project.status === "Archived" && "bg-gray-500/20 text-gray-500"
+                          project.status === "active" && "bg-green-500/20 text-green-500",
+                          project.status === "beta" && "bg-yellow-500/20 text-yellow-500",
+                          project.status === "archived" && "bg-gray-500/20 text-gray-500"
                         )}
                       >
-                        {project.status}
+                        {t.pages.projects.statuses[project.status]}
                       </span>
                     </div>
                     <p className="text-sm text-muted-foreground mb-3 line-clamp-2">

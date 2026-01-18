@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Github, Twitter, Linkedin, Mail, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { Translations } from "@/i18n/translations";
 
 const socialLinks = [
   { href: "https://github.com/your-username", icon: Github, label: "GitHub" },
@@ -9,28 +10,12 @@ const socialLinks = [
   { href: "mailto:your@email.com", icon: Mail, label: "Email" },
 ];
 
-const footerLinks = [
-  {
-    title: "Navigate",
-    links: [
-      { href: "/", label: "Home" },
-      { href: "/about", label: "About" },
-      { href: "/projects", label: "Projects" },
-      { href: "/blog", label: "Blog" },
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      { href: "/notes", label: "Notes" },
-      { href: "/skills", label: "Skills" },
-      { href: "/resume", label: "Resume" },
-      { href: "/contact", label: "Contact" },
-    ],
-  },
-];
+type FooterProps = {
+  footer: Translations["footer"];
+  brand: string;
+};
 
-export function Footer() {
+export function Footer({ footer, brand }: FooterProps) {
   return (
     <footer className="border-t border-border bg-muted/30">
       <div className="container mx-auto px-4 py-12">
@@ -38,10 +23,10 @@ export function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <Link href="/" className="text-2xl font-bold text-gradient">
-              Stone
+              {brand}
             </Link>
             <p className="mt-4 text-muted-foreground max-w-md">
-              AI Explorer & Product Builder. Passionate about exploring artificial intelligence and building practical applications.
+              {footer.description}
             </p>
 
             {/* Social Links */}
@@ -67,7 +52,7 @@ export function Footer() {
           </div>
 
           {/* Links */}
-          {footerLinks.map((group) => (
+          {footer.sections.map((group) => (
             <div key={group.title}>
               <h3 className="font-semibold mb-4">{group.title}</h3>
               <ul className="space-y-2">
@@ -88,9 +73,11 @@ export function Footer() {
 
         {/* Bottom */}
         <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Stone. All rights reserved.</p>
+          <p>
+            {footer.copyright.replace("{year}", String(new Date().getFullYear()))}
+          </p>
           <p className="flex items-center gap-1">
-            Built with <Heart className="w-4 h-4 text-accent" /> using Next.js
+            {footer.builtWithPrefix} <Heart className="w-4 h-4 text-accent" /> {footer.builtWithSuffix}
           </p>
         </div>
       </div>

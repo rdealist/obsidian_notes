@@ -2,77 +2,19 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { Calendar, Clock, Tag, Search, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getServerTranslations } from "@/i18n/server";
 
 export const metadata: Metadata = {
   title: "Blog",
   description: "Thoughts, tutorials, and insights on AI and technology",
 };
 
-const posts = [
-  {
-    title: "Understanding Transformer Architecture",
-    excerpt:
-      "A deep dive into the attention mechanism and how transformers revolutionized NLP and beyond.",
-    date: "2025-01-15",
-    readTime: "8 min read",
-    tags: ["AI", "Deep Learning", "Transformers"],
-    slug: "understanding-transformers",
-    featured: true,
-  },
-  {
-    title: "Building AI Agents with LangChain",
-    excerpt:
-      "Learn how to create autonomous agents that can use tools, make decisions, and solve complex problems.",
-    date: "2025-01-10",
-    readTime: "12 min read",
-    tags: ["LangChain", "AI Agents", "Python"],
-    slug: "ai-agents-langchain",
-    featured: true,
-  },
-  {
-    title: "RAG Systems: Best Practices",
-    excerpt:
-      "Retrieval-Augmented Generation explained with practical implementation tips and common pitfalls to avoid.",
-    date: "2025-01-05",
-    readTime: "10 min read",
-    tags: ["RAG", "LLM", "Vector Search"],
-    slug: "rag-best-practices",
-    featured: true,
-  },
-  {
-    title: "Prompt Engineering Techniques",
-    excerpt:
-      "Master the art of crafting effective prompts for better AI outputs.",
-    date: "2024-12-28",
-    readTime: "6 min read",
-    tags: ["Prompt Engineering", "LLM"],
-    slug: "prompt-engineering",
-  },
-  {
-    title: "Fine-tuning vs RAG: When to Use What",
-    excerpt:
-      "Compare two popular approaches to customizing LLM behavior for your use case.",
-    date: "2024-12-20",
-    readTime: "9 min read",
-    tags: ["Fine-tuning", "RAG", "LLM"],
-    slug: "finetuning-vs-rag",
-  },
-  {
-    title: "Building a Modern Personal Website",
-    excerpt:
-      "How I built this site with Next.js, Tailwind CSS, and a touch of AI flair.",
-    date: "2024-12-15",
-    readTime: "7 min read",
-    tags: ["Next.js", "Tailwind", "Web Dev"],
-    slug: "building-personal-website",
-  },
-];
-
-const allTags = Array.from(new Set(posts.flatMap((p) => p.tags)));
-
 export default function BlogPage() {
-  const featuredPosts = posts.filter((p) => p.featured);
-  const recentPosts = posts.filter((p) => !p.featured);
+  const { t, locale } = getServerTranslations();
+  const featuredPosts = t.pages.blog.posts.filter((p) => p.featured);
+  const recentPosts = t.pages.blog.posts.filter((p) => !p.featured);
+  const allTags = Array.from(new Set(t.pages.blog.posts.flatMap((p) => p.tags)));
+  const dateLocale = locale === "zh" ? "zh-CN" : "en-US";
 
   return (
     <div className="pt-24 pb-16">
@@ -80,13 +22,14 @@ export default function BlogPage() {
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
           <span className="text-primary text-sm font-medium tracking-wider uppercase">
-            Blog
+            {t.pages.blog.header.label}
           </span>
           <h1 className="text-4xl md:text-5xl font-bold mt-4 mb-6">
-            Thoughts & <span className="text-gradient">Insights</span>
+            {t.pages.blog.header.title}{" "}
+            <span className="text-gradient">{t.pages.blog.header.titleHighlight}</span>
           </h1>
           <p className="text-lg text-muted-foreground">
-            Writing about AI, technology, and the journey of building things.
+            {t.pages.blog.header.description}
           </p>
         </div>
 
@@ -98,7 +41,7 @@ export default function BlogPage() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <input
                 type="text"
-                placeholder="Search posts..."
+                placeholder={t.pages.blog.searchPlaceholder}
                 className={cn(
                   "w-full pl-10 pr-4 py-3 rounded-xl",
                   "bg-muted border border-border",
@@ -128,7 +71,7 @@ export default function BlogPage() {
 
         {/* Featured Posts */}
         <section className="mb-16">
-          <h2 className="text-2xl font-bold mb-8">Featured</h2>
+          <h2 className="text-2xl font-bold mb-8">{t.pages.blog.featuredTitle}</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredPosts.map((post, index) => (
@@ -145,7 +88,7 @@ export default function BlogPage() {
                 <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
                   <span className="flex items-center gap-1">
                     <Calendar className="w-4 h-4" />
-                    {new Date(post.date).toLocaleDateString("en-US", {
+                    {new Date(post.date).toLocaleDateString(dateLocale, {
                       month: "short",
                       day: "numeric",
                       year: "numeric",
@@ -186,7 +129,7 @@ export default function BlogPage() {
 
         {/* Recent Posts */}
         <section>
-          <h2 className="text-2xl font-bold mb-8">Recent Posts</h2>
+          <h2 className="text-2xl font-bold mb-8">{t.pages.blog.recentTitle}</h2>
 
           <div className="space-y-4">
             {recentPosts.map((post, index) => (
@@ -210,7 +153,7 @@ export default function BlogPage() {
                 <div className="flex items-center gap-4 text-sm text-muted-foreground shrink-0">
                   <span>{post.readTime}</span>
                   <span>
-                    {new Date(post.date).toLocaleDateString("en-US", {
+                    {new Date(post.date).toLocaleDateString(dateLocale, {
                       month: "short",
                       day: "numeric",
                     })}

@@ -11,58 +11,31 @@ import {
   Clock,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getServerTranslations } from "@/i18n/server";
 
 export const metadata: Metadata = {
   title: "Contact",
   description: "Get in touch with Stone",
 };
 
-const contactMethods = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: "your@email.com",
-    href: "mailto:your@email.com",
-    description: "Best for professional inquiries",
-  },
-  {
-    icon: Twitter,
-    label: "Twitter",
-    value: "@your-username",
-    href: "https://twitter.com/your-username",
-    description: "Quick questions and DMs",
-  },
-  {
-    icon: Github,
-    label: "GitHub",
-    value: "your-username",
-    href: "https://github.com/your-username",
-    description: "Open source collaboration",
-  },
-  {
-    icon: Linkedin,
-    label: "LinkedIn",
-    value: "your-username",
-    href: "https://linkedin.com/in/your-username",
-    description: "Professional networking",
-  },
-];
+const contactMethodIcons = [Mail, Twitter, Github, Linkedin];
 
 export default function ContactPage() {
+  const { t } = getServerTranslations();
   return (
     <div className="pt-24 pb-16">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
           <span className="text-primary text-sm font-medium tracking-wider uppercase">
-            Get in Touch
+            {t.pages.contact.header.label}
           </span>
           <h1 className="text-4xl md:text-5xl font-bold mt-4 mb-6">
-            Let's <span className="text-gradient">Connect</span>
+            {t.pages.contact.header.title}{" "}
+            <span className="text-gradient">{t.pages.contact.header.titleHighlight}</span>
           </h1>
           <p className="text-lg text-muted-foreground">
-            Have a project in mind? Want to collaborate? Or just want to say hi?
-            I'd love to hear from you!
+            {t.pages.contact.header.description}
           </p>
         </div>
 
@@ -72,7 +45,7 @@ export default function ContactPage() {
             <div className="glass rounded-3xl p-8">
               <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
                 <MessageSquare className="w-5 h-5 text-primary" />
-                Send a Message
+                {t.pages.contact.form.title}
               </h2>
 
               <form className="space-y-6">
@@ -81,12 +54,12 @@ export default function ContactPage() {
                     htmlFor="name"
                     className="block text-sm font-medium mb-2"
                   >
-                    Name
+                    {t.pages.contact.form.fields.name}
                   </label>
                   <input
                     type="text"
                     id="name"
-                    placeholder="Your name"
+                    placeholder={t.pages.contact.form.placeholders.name}
                     className={cn(
                       "w-full px-4 py-3 rounded-xl",
                       "bg-muted border border-border",
@@ -101,12 +74,12 @@ export default function ContactPage() {
                     htmlFor="email"
                     className="block text-sm font-medium mb-2"
                   >
-                    Email
+                    {t.pages.contact.form.fields.email}
                   </label>
                   <input
                     type="email"
                     id="email"
-                    placeholder="your@email.com"
+                    placeholder={t.pages.contact.form.placeholders.email}
                     className={cn(
                       "w-full px-4 py-3 rounded-xl",
                       "bg-muted border border-border",
@@ -121,12 +94,12 @@ export default function ContactPage() {
                     htmlFor="subject"
                     className="block text-sm font-medium mb-2"
                   >
-                    Subject
+                    {t.pages.contact.form.fields.subject}
                   </label>
                   <input
                     type="text"
                     id="subject"
-                    placeholder="What's this about?"
+                    placeholder={t.pages.contact.form.placeholders.subject}
                     className={cn(
                       "w-full px-4 py-3 rounded-xl",
                       "bg-muted border border-border",
@@ -141,12 +114,12 @@ export default function ContactPage() {
                     htmlFor="message"
                     className="block text-sm font-medium mb-2"
                   >
-                    Message
+                    {t.pages.contact.form.fields.message}
                   </label>
                   <textarea
                     id="message"
                     rows={5}
-                    placeholder="Your message..."
+                    placeholder={t.pages.contact.form.placeholders.message}
                     className={cn(
                       "w-full px-4 py-3 rounded-xl resize-none",
                       "bg-muted border border-border",
@@ -166,7 +139,7 @@ export default function ContactPage() {
                   )}
                 >
                   <Send className="w-5 h-5" />
-                  Send Message
+                  {t.pages.contact.form.submit}
                 </button>
               </form>
             </div>
@@ -174,18 +147,18 @@ export default function ContactPage() {
             {/* Contact Info */}
             <div className="space-y-6">
               {/* Info */}
-              <div className="glass rounded-3xl p-8">
-                <h2 className="text-xl font-bold mb-6">Contact Info</h2>
+            <div className="glass rounded-3xl p-8">
+              <h2 className="text-xl font-bold mb-6">{t.pages.contact.info.title}</h2>
 
-                <div className="space-y-4">
-                  <div className="flex items-center gap-4">
+              <div className="space-y-4">
+                <div className="flex items-center gap-4">
                     <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
                       <MapPin className="w-5 h-5 text-primary" />
                     </div>
                     <div>
-                      <p className="font-medium">Location</p>
+                      <p className="font-medium">{t.pages.contact.info.locationLabel}</p>
                       <p className="text-sm text-muted-foreground">
-                        China (Remote-friendly)
+                        {t.pages.contact.info.locationValue}
                       </p>
                     </div>
                   </div>
@@ -195,9 +168,9 @@ export default function ContactPage() {
                       <Clock className="w-5 h-5 text-primary" />
                     </div>
                     <div>
-                      <p className="font-medium">Response Time</p>
+                      <p className="font-medium">{t.pages.contact.info.responseLabel}</p>
                       <p className="text-sm text-muted-foreground">
-                        Usually within 24 hours
+                        {t.pages.contact.info.responseValue}
                       </p>
                     </div>
                   </div>
@@ -206,10 +179,12 @@ export default function ContactPage() {
 
               {/* Social Links */}
               <div className="glass rounded-3xl p-8">
-                <h2 className="text-xl font-bold mb-6">Find Me Online</h2>
+                <h2 className="text-xl font-bold mb-6">{t.pages.contact.socialTitle}</h2>
 
                 <div className="space-y-4">
-                  {contactMethods.map((method, index) => (
+                  {t.pages.contact.methods.map((method, index) => {
+                    const Icon = contactMethodIcons[index];
+                    return (
                     <a
                       key={index}
                       href={method.href}
@@ -222,7 +197,7 @@ export default function ContactPage() {
                       )}
                     >
                       <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                        <method.icon className="w-5 h-5 text-primary" />
+                        {Icon ? <Icon className="w-5 h-5 text-primary" /> : null}
                       </div>
                       <div className="flex-1">
                         <p className="font-medium group-hover:text-primary transition-colors">
@@ -233,7 +208,8 @@ export default function ContactPage() {
                         </p>
                       </div>
                     </a>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </div>

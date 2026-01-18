@@ -6,19 +6,15 @@ import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { LanguageToggle } from "@/components/ui/language-toggle";
+import type { Locale } from "@/i18n/config";
+import type { Translations } from "@/i18n/translations";
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/projects", label: "Projects" },
-  { href: "/blog", label: "Blog" },
-  { href: "/notes", label: "Notes" },
-  { href: "/skills", label: "Skills" },
-  { href: "/resume", label: "Resume" },
-  { href: "/contact", label: "Contact" },
-];
+type NavbarProps = {
+  locale: Locale;
+  nav: Translations["nav"];
+};
 
-export function Navbar() {
+export function Navbar({ locale, nav }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -47,12 +43,12 @@ export function Navbar() {
             href="/"
             className="text-xl font-bold text-gradient hover:opacity-80 transition-opacity"
           >
-            Stone
+            {nav.brand}
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1">
-            {navLinks.map((link) => (
+            {nav.links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -69,7 +65,7 @@ export function Navbar() {
 
           {/* Right Actions */}
           <div className="flex items-center gap-2">
-            <LanguageToggle />
+            <LanguageToggle locale={locale} labels={nav.language} />
             <ThemeToggle />
 
             {/* Mobile Menu Button */}
@@ -102,7 +98,7 @@ export function Navbar() {
           onClick={() => setIsMobileMenuOpen(false)}
         />
         <nav className="absolute top-20 left-4 right-4 glass rounded-2xl p-4 flex flex-col gap-1">
-          {navLinks.map((link) => (
+          {nav.links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
